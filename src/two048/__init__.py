@@ -1,7 +1,7 @@
 __title__ = "two048"
 __author__ = "airo.pi_"
 __license__ = "MIT"
-__version__ = "0.1"
+__version__ = "1.0.1"
 
 from .main import Direction as Direction
 from .main import Movement as Movement
