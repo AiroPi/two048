@@ -1,7 +1,24 @@
-API
+.. currentmodule:: two048
+
+API Reference
 ===
 
-.. autosummary::
-   :toctree: generated
+Two048
+------
+.. autoclass:: Two048
+    :members:
 
-   lumache
+Movement
+--------
+.. autoclass:: Movement
+    :members:
+
+Direction
+---------
+.. autoclass:: Direction
+    :members:
+
+Tile
+----
+.. autoclass:: Tile
+    :members:
