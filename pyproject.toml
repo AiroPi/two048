@@ -1,0 +1,4 @@
+[project]
+name = "two048"
+authors = [{ name = "airo.pi_" }]
+dynamic = ["version", "description"]

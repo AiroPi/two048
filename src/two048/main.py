@@ -19,12 +19,8 @@ class Tile:
     def __init__(self, value: int) -> None:
         self.value = value
 
-    def double(self, game: Game | None = None):
-        """Double the value of a tile. Can also increase the game score.
-
-        Args:
-            game (Game | None, optional): If given, increase the score. Defaults to None.
-        """
+    def double(self, game: Two048 | None = None):
+        """Used by the game to double the value of the tile. You should not use this function yourself."""
         self.value *= 2
         if game is not None:
             game.score += self.value
@@ -62,7 +58,7 @@ class MovementManager:
         Each tiles should only have one movement, from the start to the destination. No "sequenced" movements.
 
         Args:
-            value (Movement): The movement to append.
+            value: The movement to append.
         """
         if (tile := self.hash_find.get(value.from_, None)) is not None:
             # If a movement exist already (i.e. it is sequenced), edit the already stored movement.
@@ -76,7 +72,7 @@ class MovementManager:
         """Add a list of movements. See add_movement for more details.
 
         Args:
-            values (Iterable[Movement]): An stack of movements.
+            values: An stack of movements.
         """
         for move in values:
             self.add_movement(move)
@@ -88,7 +84,7 @@ class MovementManager:
         return self.movements != []
 
 
-class Game:
+class Two048:
     score: int
     moves: int
     board: list[list[Tile]]
@@ -107,7 +103,7 @@ class Game:
         """Generate an empty board.
 
         Returns:
-            list[list[Tile]]: A new empty board filled with Tile(0)
+            A new empty board filled with Tile(0)
         """
         return [[Tile(0) for _ in range(4)] for __ in range(4)]
 
@@ -115,7 +111,7 @@ class Game:
         """Get a list of the empty positions. This is managed by the game : you should not use it.
 
         Returns:
-            list[tuple[int, int]]: A list of empty positions
+            A list of empty positions
         """
         return [
             (i, j) for i in range(4) for j in range(4) if self.board[i][j].value == 0
@@ -132,10 +128,10 @@ class Game:
         """Use this fonction to play the game. Use a direction with Direction or "up", "down", "left", "right".
 
         Args:
-            direction (Direction | str): The direction you want to play. Can be "up", "down", "left" or "right", or a Direction enum.
+            direction: The direction you want to play. Can be "up", "down", "left" or "right", or a Direction enum.
 
         Returns:
-            list[Movement]: The list of movements made. Including merges. Useful if you need to do animations.
+            The list of movements made. Including merges. Useful if you need to do animations.
         """
         if isinstance(direction, str):
             direction = Direction(direction)
@@ -155,7 +151,7 @@ class Game:
         """To know if then game is over
 
         Returns:
-            bool: True if it is gameover, False otherwise.
+            True if it is gameover, False otherwise.
         """
         for direction in Direction:
             if (
@@ -169,7 +165,7 @@ class Game:
         """Apply a list of movements to the board.
 
         Args:
-            movements (Iterable[Movement]): A list of movements
+            movements: A list of movements
         """
         for mvmt in movements:
             if mvmt.merged:
@@ -188,11 +184,11 @@ class Game:
         Return a list of the movements made.
 
         Args:
-            direction (Direction): the direction to move
-            apply (bool): if the board should be edited or not. Allow to check if the game is ended.
+            direction: the direction to move
+            apply: if the board should be edited or not. Allow to check if the game is ended.
 
         Returns:
-            list[Movement]: the list of movements made
+            the list of movements made
         """
         match direction:
             case Direction.UP:
@@ -240,12 +236,12 @@ class Game:
         Return a list of the movements made.
 
         Args:
-            direction (Direction): the direction to merge
-            apply (bool): if the board should be edited or not. Allow to check if the game is ended.
+            direction: the direction to merge
+            apply: if the board should be edited or not. Allow to check if the game is ended.
 
 
         Returns:
-            list[Movement]: the list of movements made
+            the list of movements made
         """
         match direction:
             case Direction.UP:
@@ -301,7 +297,7 @@ class Game:
 
 
 if __name__ == "__main__":
-    game: Game = Game()
+    game: Two048 = Two048()
 
     while game.is_game_over() is False:
         print(game)
