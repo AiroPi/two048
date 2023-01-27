@@ -1,9 +1,24 @@
-Template for the Read the Docs tutorial
-=======================================
+two048 python module
+====================
 
-This GitHub template includes fictional Python library
-with some basic Sphinx docs.
+This module provides a backend for the two048 game.
 
-Read the tutorial here:
+Find its documentation at https://two048.readthedocs.org/en/latest/. Not really useful, the code is simple you can check it directly.
 
-https://docs.readthedocs.io/en/stable/tutorial/
+Install it with :
+``pip install two048``
+
+Use it with :
+
+.. code-block:: python
+
+    from two048 import Two048
+
+    game = Two048()
+
+    while not game.is_over():
+        print(game)
+        direction = input("Choose a direction (up/down/right/left): ")
+        game.play(direction)
+
+You can easily create an interface using this module. ``game.play()`` return a list of all the tile movements, so you can easily animate them.
