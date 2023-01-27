@@ -37,6 +37,10 @@ class Tile:
 
 
 class Movement:
+    """
+    Represent a movement of a Tile.
+    """
+
     def __init__(
         self, from_: tuple[int, int], to: tuple[int, int], merged: bool
     ) -> None:
@@ -124,7 +128,7 @@ class Two048:
         (new_tile,) = random.sample([Tile(2), Tile(4)], counts=[9, 1], k=1)
         self.board[spawn_position[0]][spawn_position[1]] = new_tile
 
-    def move(self, direction: Direction | DirectionString) -> list[Movement]:
+    def play(self, direction: Direction | DirectionString) -> list[Movement]:
         """Use this fonction to play the game. Use a direction with Direction or "up", "down", "left", "right".
 
         Args:
@@ -147,7 +151,7 @@ class Two048:
 
         return movements_manager.movements
 
-    def is_game_over(self) -> bool:
+    def is_over(self) -> bool:
         """To know if then game is over
 
         Returns:
@@ -299,7 +303,7 @@ class Two048:
 if __name__ == "__main__":
     game: Two048 = Two048()
 
-    while game.is_game_over() is False:
+    while game.is_over() is False:
         print(game)
         direction: Direction = {
             "\x1b[A": Direction.UP,
@@ -307,7 +311,7 @@ if __name__ == "__main__":
             "\x1b[D": Direction.LEFT,
             "\x1b[C": Direction.RIGHT,
         }[input("Direction : ")]
-        game.move(direction)
+        game.play(direction)
 
     print(game)
     print("Game over ! Score :", game.score)
